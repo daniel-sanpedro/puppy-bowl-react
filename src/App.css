@@ -1,0 +1,188 @@
+body {
+  background: #555555;
+  color: #212121;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  margin: 0;
+  margin-top: 0;
+  color: #000000;
+}
+
+.nav-container {
+  background-color: rgb(224, 223, 220);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  box-shadow: 2px 2px 2px 2px #000000;
+}
+
+.nav-container img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.nav-container ul {
+  margin: 0;
+  padding: 20px;
+}
+
+.nav-container ul button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+}
+
+.nav-container ul button a {
+  color: black;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.container h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.container p {
+  font-size: 16px;
+  color: #000000;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+}
+
+.form-container {
+  margin: 0px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px #000000;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+}
+
+.form-container input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: rgb(224, 223, 220);
+  color: black;
+}
+
+.close-btn,
+.form-container button {
+  width: 100%;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  outline: 0;
+  grid-gap: 8px;
+  align-items: center;
+  background: 0 0;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 12px 50px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.14s ease-out;
+  white-space: nowrap;
+}
+
+.close-btn,
+.form-container button:hover {
+  box-shadow: 4px 4px 0 #000;
+  transform: translate(-4px, -4px);
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px #000000;
+}
+
+.table-container th,
+.table-container td {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: center;
+}
+
+.table-container th {
+  background-color: rgb(224, 223, 220);
+  font-size: 20px;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.details-btn,
+.del-btn {
+  margin-left: 30px;
+  outline: 0;
+  grid-gap: 8px;
+  align-items: center;
+  background: 0 0;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 12px 50px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.14s ease-out;
+  white-space: nowrap;
+}
+
+.details-btn:hover,
+.del-btn:hover {
+  box-shadow: 4px 4px 0 #000;
+  transform: translate(-4px, -4px);
+}
+
+/* Player details */
+.dialog {
+  width: 90%;
+  max-width: 500px;
+  background-color: rgb(243, 243, 243);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
