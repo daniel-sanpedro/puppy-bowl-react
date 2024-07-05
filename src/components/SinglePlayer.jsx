@@ -1,28 +1,39 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PlayerCard from "./PlayerCard";
-import { fetchSinglePlayer } from "../API";
+import { fetchSinglePlayer } from "../API/index";
 
-function SinglePlayer() {
-  const [player, setPlayer] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { playerId } = useParams();
+const SinglePlayer = () => {
+  const { id } = useParams();
+  const [player, setPlayer] = useState(null);
 
   useEffect(() => {
-    const getPlayerByID = async () => {
-      const player = await fetchSinglePlayer(playerId);
-      setPlayer(player);
-      setIsLoading(false);
+    const fetchPlayer = async () => {
+      const fetchedPlayer = await fetchSinglePlayer(id);
+      setPlayer(fetchedPlayer);
     };
-    getPlayerByID();
-  }, []);
+    fetchPlayer();
+  }, [id]);
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (!player) return <div>Loading...</div>;
 
-  if (!player) return <h3>404: Player not found</h3>;
-
-  return <PlayerCard key={player.id} player={player} />;
-}
+  return (
+    <div className="player-details">
+      <h2>{player.name}</h2>
+      <p>
+        <strong>Breed:</strong> {player.breed}
+      </p>
+      <p>
+        <strong>Status:</strong> {player.status}
+      </p>
+      <p>
+        <strong>Team:</strong> {player.team?.name}
+      </p>
+      <p>
+        <strong>Owner:</strong> {player.owner}
+      </p>
+      <img src={player.imageUrl} alt={player.name} />
+    </div>
+  );
+};
 
 export default SinglePlayer;

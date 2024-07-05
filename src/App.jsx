@@ -1,33 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import AllPlayers from "./components/AllPlayers";
 import SinglePlayer from "./components/SinglePlayer";
+import NewPlayerForm from "./components/NewPlayerForm";
 import "./App.css";
 
 function App() {
-  // TODO
-  // Add form to create a new player
-  // add the player to all players list without refreshing the page
-
-  // TODO
-  // Add styles from previous Puppy Bowl
-  // or styles from scratch
-
-  // TODO
-  // Add try/catch around functions in useEffect
-  // to handle errors
-  // HINT: const [hasError, setHasError] = useState(false)
-
   return (
-    <>
-      <h1>Puppy Bowl</h1>
+    <div className="App">
       <NavBar />
-      <Routes>
-        <Route path="/" element={<AllPlayers />} />
-        <Route path="/players" element={<AllPlayers />} />
-        <Route path="/players/:playerId" element={<SinglePlayer />} />
-      </Routes>
-    </>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<AllPlayers />} />
+          <Route path="/players/:id" element={<SinglePlayer />} />
+          <Route path="/new-player" element={<NewPlayerForm />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
 

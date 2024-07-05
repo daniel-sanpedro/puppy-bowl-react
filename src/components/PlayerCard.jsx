@@ -1,20 +1,27 @@
-function PlayerCard({ player }) {
-  // TODO
-  // Details
-  // The user can click a details button (or something similar) on each puppy that will lead them to another page view with specific details on that puppy, such as owner and team name.
+import React from "react";
+import { Link } from "react-router-dom";
 
+const PlayerCard = ({ player, handleDelete }) => {
   return (
-    <div>
-      <div>
-        <p>{player.name}</p>
-        <p>{`#${player.id}`}</p>
+    <div className="player-card">
+      <img src={player.imageUrl} alt={player.name} className="player-image" />
+      <h3>{player.name}</h3>
+      <p>
+        <strong>Breed:</strong> {player.breed}
+      </p>
+      <p>
+        <strong>Status:</strong> {player.status}
+      </p>
+      <div className="actions">
+        <Link to={`/players/${player.id}`} className="details-btn">
+          Details
+        </Link>
+        <button className="del-btn" onClick={() => handleDelete(player.id)}>
+          Delete
+        </button>
       </div>
-      <img src={player.imageUrl} alt={`photo of ${player.name} the puppy`} />
-      <button>See details</button>
-      <button>Remove from roster</button>
     </div>
   );
-}
+};
 
 export default PlayerCard;
- 

@@ -1,77 +1,70 @@
-import { PlayerDetails } from "../components/PlayerDetails";
-import { NewPlayerForm } from "../components/NewPlayerForm";
-import { useState, useEffect } from "react";
-import { delPlayer, fetchAllPlayers, fetchSinglePlayer } from "../API";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchAllPlayers, delPlayer } from "../API/index";
 
-export default function AllPlayers() {
+const AllPlayers = () => {
   const [players, setPlayers] = useState([]);
-  const [player, setPlayer] = useState({});
-  const [filter, setFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchAllPlayers().then(setPlayers);
+    const fetchPlayers = async () => {
+      const players = await fetchAllPlayers();
+      setPlayers(players);
+    };
+    fetchPlayers();
   }, []);
 
-  function handleDetails(playerId) {
-    fetchSinglePlayer(playerId).then(setPlayer);
-  }
+  const handleDelete = async (id) => {
+    await delPlayer(id);
+    setPlayers(players.filter((player) => player.id !== id));
+  };
 
-  function handleDelete(playerId) {
-    delPlayer(playerId).then(() => {
-      fetchAllPlayers().then(setPlayers);
-    });
-  }
-
-  function handlePlayerAdded(updatedPlayers) {
-    setPlayers(updatedPlayers);
-  }
-
-  function handleFilter(evt) {
-    setFilter(evt.target.value);
-  }
+  const filteredPlayers = players.filter((player) =>
+    player.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="container">
-      <h2>Roster Page</h2>
-      <p>Use the below to add some puppers </p>
-      <div onClick={() => setPlayer({})}>
-        <PlayerDetails player={player} className="player-container" />
-        <div className="form-container">
-          <NewPlayerForm onPlayerAdded={handlePlayerAdded} />
-          <label htmlFor="name">Search:</label>
-          <input
-            type="text"
-            name="filter"
-            value={filter}
-            onChange={handleFilter}
-          />
-        </div>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Breed</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {players
-                .filter((player) => player.name.toLowerCase().includes(filter))
-                .map((player) => {
-                  return (
-                    <player
-                      key={player.id}
-                      player={player}
-                      onClick={handleDetails}
-                      onDelete={handleDelete}
-                    />
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div className="table-container">
+      <h2>Puppy Bowl Players</h2>
+      <input
+        type="text"
+        placeholder="Search for a player"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="filter-input"
+      />
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Breed</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredPlayers.map((player) => (
+            <tr key={player.id}>
+              <td>{player.name}</td>
+              <td>{player.breed}</td>
+              <td>{player.status}</td>
+              <td>
+                <Link to={`/players/${player.id}`} className="details-btn">
+                  Details
+                </Link>
+                <button
+                  className="del-btn"
+                  onClick={() => handleDelete(player.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
+
+export default AllPlayers;

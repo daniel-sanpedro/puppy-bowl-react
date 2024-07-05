@@ -1,54 +1,63 @@
-import { useState } from "react";
-import { createPlayer, fetchAllPlayers } from "../API";
+import React, { useState } from "react";
+import { createPlayer } from "../API/index";
 
-export function NewPlayerForm({ onPlayerAdded }) {
+const NewPlayerForm = () => {
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
+  const [status, setStatus] = useState("bench");
   const [imageUrl, setImageUrl] = useState("");
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    const newPlayer = { name, breed, imageUrl };
-
-    createPlayer(newPlayer).then(() => {
-      fetchAllPlayers().then((players) => {
-        onPlayerAdded(players);
-      });
-    });
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newPlayer = await createPlayer({ name, breed, status, imageUrl });
+    console.log("New player added:", newPlayer);
     setName("");
     setBreed("");
+    setStatus("bench");
     setImageUrl("");
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <label htmlFor="breed">Breed:</label>
-      <input
-        type="text"
-        id="breed"
-        value={breed}
-        onChange={(e) => setBreed(e.target.value)}
-      />
-      <label htmlFor="name">Image URL:</label>
-      <input
-        type="text"
-        id="imageUrl"
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
-      />
-      <button className="submit-btn" type="submit">
-        Add Player
-      </button>
-    </form>
+    <div className="form-container">
+      <h2>Add New Player</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+
+        <label>Breed:</label>
+        <input
+          type="text"
+          value={breed}
+          onChange={(e) => setBreed(e.target.value)}
+          required
+        />
+
+        <label>Status:</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          required
+        >
+          <option value="bench">Bench</option>
+          <option value="field">Field</option>
+        </select>
+
+        <label>Image URL:</label>
+        <input
+          type="text"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
+
+        <button type="submit">Add Player</button>
+      </form>
+    </div>
   );
-}
+};
 
-
+export default NewPlayerForm;

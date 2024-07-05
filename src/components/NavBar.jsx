@@ -1,18 +1,19 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+const NavBar = () => {
   return (
     <div className="nav-container">
-      <nav>
-        <ul>
-          <button className="details-btn">
-            <Link to="/">HOME</Link>
-          </button>
-          <button className="details-btn">
-            <Link to="/roster">ROSTER</Link>
-          </button>
-        </ul>
-      </nav>
+      <ul>
+        <li>
+          <Link to="/">All Players</Link>
+        </li>
+        <li>
+          <Link to="/new-player">Add New Player</Link>
+        </li>
+      </ul>
     </div>
   );
-}
+};
+
+export default NavBar;
